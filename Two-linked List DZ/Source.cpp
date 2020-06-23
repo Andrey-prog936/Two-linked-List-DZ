@@ -3,18 +3,15 @@ using namespace std;
 class List
 {
 private:
-	// Структура елемента списка
 	struct Node
 	{
-		int data;	// дані
-		Node* next;	// зв'язок з наступним елементом
-		Node* prev;	// зв'язок з попереднім елементом
+		int data;	
+		Node* next;
+		Node* prev;	
 	};
-
-	Node* head;	// вказівник на голову списка
-	Node* tail; // вказівник на хвіст списка
-
-	int size;	// розмір списка
+	Node* head;	
+	Node* tail; 
+	int size;	
 public:
 	List() : head(nullptr), tail(nullptr), size(0) { }
 	List(const List& other)
@@ -70,119 +67,74 @@ public:
 			DeleteFromHead();
 		}
 	}
-	// Додати елемент на початок
 	void AddToHead(int data)
 	{
-		// створення нового елемента
 		Node* newElem = new Node;
-		// задавання значення новогму елементу
 		newElem->data = data;
-		// наступним елементом буде поточна голова
 		newElem->next = head;
-		// попереднього елемента не існує
 		newElem->prev = nullptr;
-
-		// якщо список був порожній
 		if (IsEmpty())
 		{
-			// новий елемент стає головою та хвостом
 			head = tail = newElem;
 		}
-		// якщо елементи вже існують
 		else
 		{
-			// зв'язуємо поточну голову з новим елементом
 			head->prev = newElem;
-			// оновлюємо вказівник на голову
 			head = newElem;
 		}
-		++size; // збільшуємо розмір списка
+		++size;
 	}
-	// Видалити елемент з початку
 	void DeleteFromHead()
 	{
-		// якщо список порожній, тоді видалення не відбувається
 		if (IsEmpty()) return;
 
-		// якщо елементи існують, тоді зберігаємо елемент після голови
 		Node* temp = head->next;
-		// видаляємо голову
 		delete head;
-
-		// якщо елемента після голови не існувало (тобто елемент був єдиним в списку)
 		if (temp == nullptr)
 		{
-			// очищаємо голову та хвіст
 			head = tail = nullptr;
 		}
-		// якщо елемент після голови наявний
 		else
 		{
-			// очищаємо зв'язок з видаленою головою
 			temp->prev = nullptr;
-			// елемент після видаленої голови стає поточною головою
 			head = temp;
 		}
-		--size; // зменшуємо розмір списка
+		--size;
 	}
-	// Додати елемент в кінець
 	void AddToTail(int data)
 	{
-		// створення нового елемента
 		Node* newElem = new Node;
-		// задавання значення новому елементу
 		newElem->data = data;
-		// за хвостом елементів немає
 		newElem->next = nullptr;
-		// зв'язуємо новий елемент з попереднім (поточним хвостом)
 		newElem->prev = tail;
-
-		// якщо список був порожній
 		if (IsEmpty())
 		{
-			// новий елемент стає головою та хвостом
 			head = tail = newElem;
 		}
-		// якщо елементи вже існують
 		else
 		{
-			// зв'язуємо останній елемен з новим хвістом
 			tail->next = newElem;
-			// оновлюємо вказівник на хвіст
 			tail = newElem;
 		}
-		++size; // збільшуємо розмір списка
+		++size;
 	}
-	// Видалити елемент з кінця
 	void DeleteFromTail()
 	{
-		// якщо список порожній, тоді видалення не відбувається
 		if (IsEmpty()) return;
-
-		// якщо елемента після голови не існує (тобто елемент єдиний в списку) 
 		if (head->next == nullptr)
 		{
-			// видаляємо голову (єдиний елемент)
 			delete head;
-			// очищаємо голову та хвіст
 			head = tail = nullptr;
 		}
-		// якщо елементи існували
 		else
 		{
-			// знаходимо вказівник на передостанній елемент (елемент перед поточним хвостом)
 			Node* temp = tail->prev;
-
-			// видаляємо останній елемент
 			delete temp->next;
-			// очищаємо зв'язок з останнім елементом
 			temp->next = nullptr;
-			// оновлюємо хвіст
 			tail = temp;
 		}
-		--size; // зменшуємо розмір списка
+		--size;
 	}
-	// Додавання елемента в позицію
 	void AddPos(int posi, int data)
 	{
 		if (posi <= 0 || posi > size + 1) return;
@@ -206,16 +158,13 @@ public:
 		{
 			current = current->next;
 		}
-
 		newElem->prev = current->prev;
 		current->prev->next = newElem;
 
 		current->prev = newElem;
 		newElem->next = current;
-
-		++size; // збільшуємо розмір списка
+		++size;
 	}
-	// Вдалення елемента в позиції
 	void DeletePos(int posi)
 	{
 		if (posi <= 0 || posi > size) return;
@@ -241,9 +190,8 @@ public:
 		current->next->prev = current->prev;
 		delete current;
 
-		--size; // зменшуємо розмір списка
+		--size; 
 	}
-	// Видалення всіх елементів;
 	void DeleteAll()
 	{
 		while (!IsEmpty())
@@ -251,12 +199,10 @@ public:
 			DeleteFromHead();
 		}
 	}
-	// Відображення всіх елементів
 	void Show() const
 	{
 		for (Node* current = head; current != nullptr; current = current->next)
 		{
-			// print current data
 			cout << current->data << ", ";
 		}
 	}
@@ -269,7 +215,7 @@ public:
 	{
 		return size;
 	}
-	
+
 	int Search(int data)
 	{
 		Node* temp = head;
@@ -303,7 +249,6 @@ public:
 	{
 		for (Node* current = head; current != nullptr; current = current->next)
 		{
-			// print current data
 			cout << current->data << ", ";
 		}
 	}
@@ -314,14 +259,19 @@ public:
 			DeleteFromHead();
 		}
 	}
-	//##################################
 	void Revers()
 	{
-		
-	}
-	List& operator+(const List& other)
-	{
-		
+		if (IsEmpty()) return;
+
+		Node* tmp = nullptr;
+		Node * current = nullptr;
+		while (tail->next == 0)
+		{
+			tmp = head->next;
+			head->next = current;
+			current = head;
+			head = tmp;
+		}
 	}
 };
 
