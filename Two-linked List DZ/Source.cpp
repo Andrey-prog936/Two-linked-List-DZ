@@ -13,7 +13,7 @@ int main()
 	ls.AddToHead(5);
 	ls.AddToHead(20);
 	ls.Show();
-	cout << ls.Search(5) << endl;
+	cout <<"Search result: "<< ls.Search(5) <<" position"<< endl;
 	/*
 	ls.Print(); cout << endl;
 

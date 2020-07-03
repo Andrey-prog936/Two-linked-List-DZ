@@ -200,8 +200,16 @@ void List::Show() const
 {
 	for (Node* current = head; current != nullptr; current = current->next)
 	{
-		cout << current->data << ", ";
+		if (current->next != 0)
+		{
+			cout << current->data << ", ";
+		}
+		else
+		{
+			cout << current->data << " ";
+		}
 	}
+	cout <<"\nSize: "<< size << endl;
 }
 
 bool List::IsEmpty() const
